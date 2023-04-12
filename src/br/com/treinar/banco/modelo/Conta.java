@@ -3,7 +3,7 @@ package br.com.treinar.banco.modelo;
 public abstract class Conta {
 
     private String tipoConta;
-    private double saldo;
+    protected double saldo;
 
     private int numeroConta;
 
@@ -25,9 +25,7 @@ public abstract class Conta {
         return saqueEfetuado;
     }
 
-    public double recuperarSaldo() {
-        return saldo;
-    }
+    public abstract double recuperarSaldo();
 
     public String getTipoConta() {
         return tipoConta;
@@ -60,4 +58,5 @@ public abstract class Conta {
     public void setAgencia(int agencia) {
         this.agencia = agencia;
     }
+
 }

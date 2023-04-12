@@ -1,6 +1,9 @@
 package br.com.treinar.banco.modelo;
 
-public class ContaInvestimento extends Conta {
+import br.com.treinar.banco.modelo.contrato.ProdutoPagavel;
+import br.com.treinar.banco.modelo.contrato.ProdutoRentavel;
+
+public class ContaInvestimento extends Conta implements ProdutoRentavel, ProdutoPagavel {
 
     private float taxaRendimento;
 
@@ -20,5 +23,20 @@ public class ContaInvestimento extends Conta {
 
     public void setTaxaManutencao(float taxaManutencao) {
         this.taxaManutencao = taxaManutencao;
+    }
+
+    @Override
+    public double recuperarSaldo() {
+        return super.saldo;
+    }
+
+    @Override
+    public void render() {
+        depositar(this.saldo * taxaRendimento);
+    }
+
+    @Override
+    public void pagar() {
+        sacar(taxaManutencao);
     }
 }

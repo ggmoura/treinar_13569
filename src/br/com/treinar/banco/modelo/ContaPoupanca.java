@@ -11,4 +11,9 @@ public final class ContaPoupanca extends Conta {
     public void setTaxaRendimento(float taxaRendimento) {
         this.taxaRendimento = taxaRendimento;
     }
+
+    @Override
+    public double recuperarSaldo() {
+        return super.saldo;
+    }
 }

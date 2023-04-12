@@ -1,6 +1,8 @@
 package br.com.treinar.banco.visao;
 
 import br.com.treinar.banco.modelo.*;
+import br.com.treinar.banco.modelo.contrato.ProdutoPagavel;
+import br.com.treinar.banco.modelo.contrato.ProdutoRentavel;
 
 import java.util.Scanner;
 
@@ -34,12 +36,30 @@ public class TelaBancoTreinar {
                 case 5:
                     imprimirDadosConta();
                     break;
+                case 6:
+                    tarifarConta();
+                    break;
+                case 7:
+                    rentabilizarConta();
+                    break;
                 case 0:
                     System.out.println("Fim do programa");
                     break;
                 default:
                     System.out.println("Opção Inválida");
             }
+        }
+    }
+
+    private void rentabilizarConta() {
+        if (conta instanceof ProdutoRentavel) {
+            ((ProdutoRentavel) conta).render();
+        }
+    }
+
+    private void tarifarConta() {
+        if (conta instanceof  ProdutoPagavel) {
+            ((ProdutoPagavel)conta).pagar();
         }
     }
 
@@ -90,16 +110,27 @@ public class TelaBancoTreinar {
         int tipoConta = teclado.nextInt();
         switch (tipoConta) {
             case 1:
-                conta = new ContaCorrente();
-                conta.setTipoConta("ContaCorrente");
+                ContaCorrente contaCorrente = new ContaCorrente();
+                contaCorrente.setTipoConta("ContaCorrente");
+                System.out.print("Informe a taxa de manutencao: ");
+                contaCorrente.setTaxaManutencao(teclado.nextFloat());
+                conta = contaCorrente;
                 break;
             case 2:
-                conta = new ContaPoupanca();
-                conta.setTipoConta("ContaPoupança");
+                ContaPoupanca contaPoupanca = new ContaPoupanca();
+                contaPoupanca.setTipoConta("ContaCorrente");
+                System.out.print("Informe a taxa de rendimento da poupança: ");
+                contaPoupanca.setTaxaRendimento(teclado.nextFloat());
+                conta = contaPoupanca;
                 break;
             case 3:
-                conta = new ContaInvestimento();
-                conta.setTipoConta("ContaInvestimento");
+                ContaInvestimento contaInvestimento = new ContaInvestimento();
+                contaInvestimento.setTipoConta("ContaCorrente");
+                System.out.print("Informe a taxa de manutencao: ");
+                contaInvestimento.setTaxaManutencao(teclado.nextFloat());
+                System.out.print("Informe a taxa de rendimento: ");
+                contaInvestimento.setTaxaRendimento(teclado.nextFloat());
+                conta = contaInvestimento;
                 break;
             default:
                 System.out.println("Tipo de conta inválido!");
@@ -127,7 +158,9 @@ public class TelaBancoTreinar {
                 "2 - Depositar\n\t" +
                 "3 - Sacar\n\t" +
                 "4 - Exibir Saldo\n\t" +
-                "5 - Imprimir dados da conta\n" +
+                "5 - Imprimir dados da conta\n\t" +
+                "6 - Tarifar conta\n\t" +
+                "7 - Rentabilizar conta\n" +
                 " => ");
     }
 
